@@ -1,0 +1,73 @@
+# ==========================================
+#        CIDARIS CRAFT - Menus (GUIs)
+# ==========================================
+
+# 1. Le Workbench (Table de craft custom)
+workbench:
+  title: "&8» &3Workbench Avancé"
+  size: 54 # 6 lignes
+  # Définition de la grille 3x3 pour placer les items
+  grid_slots: [10, 11, 12, 19, 20, 21, 28, 29, 30]
+  # Slot où le résultat apparaît
+  result_slot: 24
+  # Remplissage du fond pour faire propre (1.8 = STAINED_GLASS_PANE:15 pour noir)
+  background:
+    material: STAINED_GLASS_PANE
+    data: 15
+    name: " "
+  # Item affiché si le craft est verrouillé
+  locked_indicator:
+    material: BARRIER
+    name: "&c&lCraft Verrouillé"
+    lore:
+      - "&7Vous n'avez pas encore débloqué"
+      - "&7cette recette dans l'arbre."
+
+# 2. Le Menu de Fouille des Blueprints
+blueprint_menu:
+  title: "&8» &dAnalyse de Blueprint"
+  size: 27
+  # Slot où le joueur dépose son blueprint non-fouillé
+  input_slot: 11
+  # Bouton pour lancer la fouille
+  search_button:
+    slot: 13
+    material: MAGNIFYING_GLASS # A adapter selon texture pack, ex: STICK
+    name: "&a&lFouiller le Blueprint"
+  # Slot où le blueprint révélé apparaît
+  output_slot: 15
+
+# 3. L'Arbre de Craft (Wiki)
+wiki_tree:
+  title: "&8» &6Arbre Technologique"
+  size: 54
+  status_colors:
+    locked:
+      name_prefix: "&c[Verrouillé] &f"
+      lore_append:
+        - ""
+        - "&c&l✖ &cParents non débloqués."
+    unlockable:
+      name_prefix: "&e[Déblocable] &f"
+      lore_append:
+        - ""
+        - "&a&l✔ &aCliquer pour débloquer !"
+    unlocked:
+      name_prefix: "&a[Débloqué] &f"
+      glow: true
+      lore_append:
+        - ""
+        - "&aDéjà acquis."
+  navigation:
+    previous_button:
+      slot: 45
+      material: ARROW
+      name: "&e▲ Faire défiler vers le haut"
+    next_button:
+      slot: 53
+      material: ARROW
+      name: "&e▼ Faire défiler vers le bas"
+    filler:
+      material: STAINED_GLASS_PANE
+      data: 15
+      name: " "

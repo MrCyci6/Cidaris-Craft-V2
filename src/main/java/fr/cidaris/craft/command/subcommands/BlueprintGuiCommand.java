@@ -1,0 +1,33 @@
+package fr.cidaris.craft.command.subcommands;
+
+import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.command.SubCommand;
+import fr.cidaris.craft.gui.menus.BlueprintGui;
+import org.bukkit.entity.Player;
+
+public class BlueprintGuiCommand extends SubCommand {
+
+    private final CidarisCraftPlugin plugin;
+
+    public BlueprintGuiCommand(CidarisCraftPlugin plugin) {
+        this.plugin = plugin;
+    }
+
+    @Override
+    public String getName() { return "bpgui"; }
+
+    @Override
+    public String getDescription() { return "Ouvre la recherche de blueprint."; }
+
+    @Override
+    public String getSyntax() { return "/ccraft bpgui"; }
+
+    @Override
+    public String getPermission() { return "cidaris.use"; }
+
+    @Override
+    public void perform(Player player, String[] args) {
+        BlueprintGui gui = new BlueprintGui(plugin, player);
+        player.openInventory(gui.getInventory());
+    }
+}

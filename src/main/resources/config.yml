@@ -1,0 +1,32 @@
+# ==========================================
+#        CIDARIS CRAFT - Configuration
+# ==========================================
+
+database:
+  # Types supportés: JSON, SQLITE, MYSQL, MARIADB, POSTGRESQL
+  type: "JSON"
+  host: "localhost"
+  port: 3306
+  database: "cidaris"
+  username: "root"
+  password: "password"
+
+webhook:
+  enabled: false
+  url: "WEBHOOK"
+
+wiki-heads:
+  unlocked: "6105"      # Une tête Verte (Débloqué)
+  unlockable: "6101"    # Une tête Jaune (Prêt à acheter)
+  locked-parents: "6103" # Une tête Rouge (Parent manquant)
+  locked-resources: "8619" # Une tête Orange (Manque d'argent/items)
+
+# Configuration de l'item Blueprint (Non-fouillé)
+blueprint:
+  material: PAPER
+  name: "&b&lBlueprint Mystère"
+  lore:
+    - "&7Rendez-vous dans le menu des Blueprints"
+    - "&7pour fouiller cet objet et découvrir"
+    - "&7le craft qu'il renferme."
+  glow: true

@@ -1,0 +1,8 @@
+name: CidarisCraft
+main: fr.cidaris.craft.CidarisCraftPlugin
+version: 1.0.0
+author: MrCyci6
+depend: [Vault, HeadDatabase]
+commands:
+  ccraft:
+    description: Commande principale

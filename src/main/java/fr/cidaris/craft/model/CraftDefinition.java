@@ -1,0 +1,45 @@
+package fr.cidaris.craft.model;
+
+import java.util.List;
+import java.util.Map;
+
+public class CraftDefinition {
+    private final String id;
+    private final String name;
+    private final List<String> parents;
+    private final List<Cost> costs;
+    private final String consoleCommand;
+
+    // Recette
+    private final List<String> shape;
+    private final Map<Character, Ingredient> ingredients;
+    private final CraftResult result;
+    private final int guiColumn;
+    private final int guiTier;
+    public CraftDefinition(String id, String name, List<String> parents, List<Cost> costs,
+                           String consoleCommand, List<String> shape,
+                           Map<Character, Ingredient> ingredients, CraftResult result,
+                           int guiColumn, int guiTier) {
+        this.id = id;
+        this.name = name;
+        this.parents = parents;
+        this.costs = costs;
+        this.consoleCommand = consoleCommand;
+        this.shape = shape;
+        this.ingredients = ingredients;
+        this.result = result;
+        this.guiColumn = guiColumn;
+        this.guiTier = guiTier;
+    }
+    public int getGuiColumn() { return guiColumn; }
+    public int getGuiTier() { return guiTier; }
+
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public List<String> getParents() { return parents; }
+    public List<Cost> getCosts() { return costs; }
+    public String getConsoleCommand() { return consoleCommand; }
+    public List<String> getShape() { return shape; }
+    public Map<Character, Ingredient> getIngredients() { return ingredients; }
+    public CraftResult getResult() { return result; }
+}
