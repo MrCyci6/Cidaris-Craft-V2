@@ -3,8 +3,7 @@
 # ==========================================
 
 database:
-  # Types supportés: JSON, SQLITE, MYSQL, MARIADB, POSTGRESQL
-  type: "JSON"
+  type: "SQLITE" # MARIADB, MYSQL, POSTGRESQL, SQLITE, YAML, JSON
   host: "localhost"
   port: 3306
   database: "cidaris"
@@ -12,21 +11,30 @@ database:
   password: "password"
 
 webhook:
-  enabled: false
-  url: "WEBHOOK"
+  enabled: true
+  url: "https://discord.com/api/webhooks/1474433559073657004/D5XzugZrX5NYgZdRU23NFmQg7wLqPWxD3kCNuDUyDt2qFfrfiA0FdGnxfjH4u6Aw8JF1"
 
 wiki-heads:
-  unlocked: "6105"      # Une tête Verte (Débloqué)
-  unlockable: "6101"    # Une tête Jaune (Prêt à acheter)
-  locked-parents: "6103" # Une tête Rouge (Parent manquant)
-  locked-resources: "8619" # Une tête Orange (Manque d'argent/items)
+  unlocked: "6105"      # Tête Verte (Débloqué)
+  unlockable: "6101"    # Tête Jaune (Prêt à acheter)
+  locked-parents: "6103" # Tête Rouge (Parent manquant)
+  locked-resources: "8619" # Tête Orange (Ressources manquantes)
 
-# Configuration de l'item Blueprint (Non-fouillé)
 blueprint:
+  hdb: "41033"
   material: PAPER
   name: "&b&lBlueprint Mystère"
   lore:
     - "&7Rendez-vous dans le menu des Blueprints"
     - "&7pour fouiller cet objet et découvrir"
     - "&7le craft qu'il renferme."
-  glow: true
+    -
+blueprint_revealed:
+  hdb: "41032"
+  material: EMPTY_MAP
+  name: "&a&lPlan : &e%craft_name%"
+  lore:
+    - "&7Vous avez analysé ce plan."
+    - ""
+    - "&a► Clic-Droit pour débloquer"
+    - "&a  sans payer de ressources !"

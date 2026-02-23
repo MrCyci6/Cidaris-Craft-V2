@@ -52,6 +52,7 @@ public class CraftManager {
                     }
                 }
 
+                ConfigurationSection recipeSec = section.getConfigurationSection("recipe");
                 List<String> commands = section.getStringList("commands");
 
                 int guiColumn = section.getInt("gui.column", 0);

@@ -1,23 +1,25 @@
 package fr.cidaris.craft.gui.menus;
 
 import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.config.files.GuisConfig;
 import fr.cidaris.craft.gui.CidarisGui;
 import fr.cidaris.craft.model.CraftDefinition;
 import fr.cidaris.craft.model.Ingredient;
 import fr.cidaris.craft.model.PlayerData;
 import fr.cidaris.craft.model.enums.IngredientType;
 import fr.cidaris.craft.model.enums.ResultMode;
+import fr.cidaris.craft.utils.ConfigItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +29,11 @@ public class WorkbenchGui implements CidarisGui {
     private final Player player;
     private final PlayerData playerData;
     private final Inventory inventory;
+    private final ConfigurationSection config;
 
-    private final int[] CRAFT_SLOTS = {10, 11, 12, 19, 20, 21, 28, 29, 30};
-    private final int RESULT_SLOT = 24;
+    private final List<Integer> CRAFT_SLOTS;
+    private final int RESULT_SLOT;
+    private final int SIZE;
 
     private CraftDefinition currentRecipe = null;
 
@@ -38,43 +42,38 @@ public class WorkbenchGui implements CidarisGui {
         this.player = player;
         this.playerData = plugin.getPlayerDataManager().getPlayerData(player.getUniqueId());
 
-        this.inventory = Bukkit.createInventory(this, 54, "§8» §3Workbench");
+        this.config = plugin.getConfigManager().getConfig(GuisConfig.class).get().getConfigurationSection("workbench");
+
+        String title = ChatColor.translateAlternateColorCodes('&', config.getString("title", "Workbench"));
+        this.SIZE = config.getInt("size", 54);
+        this.CRAFT_SLOTS = config.getIntegerList("grid_slots");
+        this.RESULT_SLOT = config.getInt("result_slot", 24);
+
+        this.inventory = Bukkit.createInventory(this, SIZE, title);
         setupBackground();
     }
 
     private void setupBackground() {
-        ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
-        ItemMeta meta = glass.getItemMeta();
-        meta.setDisplayName(" ");
-        glass.setItemMeta(meta);
-
-        for (int i = 0; i < 54; i++) {
-            inventory.setItem(i, glass);
+        ItemStack bgItem = ConfigItemBuilder.fromConfig(plugin, config.getConfigurationSection("background"));
+        for (int i = 0; i < SIZE; i++) {
+            if (!CRAFT_SLOTS.contains(i) && i != RESULT_SLOT) {
+                inventory.setItem(i, bgItem);
+            }
         }
-
-        for (int slot : CRAFT_SLOTS) {
-            inventory.setItem(slot, null);
-        }
-        inventory.setItem(RESULT_SLOT, null);
     }
 
     @Override
-    public Inventory getInventory() {
-        return inventory;
-    }
+    public Inventory getInventory() { return inventory; }
 
     @Override
     public void onClose(InventoryCloseEvent event) {
         for (int slot : CRAFT_SLOTS) {
             ItemStack item = inventory.getItem(slot);
-
             if (item != null && item.getType() != Material.AIR) {
-                java.util.HashMap<Integer, ItemStack> leftOvers = player.getInventory().addItem(item);
-
+                HashMap<Integer, ItemStack> leftOvers = player.getInventory().addItem(item);
                 for (ItemStack drop : leftOvers.values()) {
                     player.getWorld().dropItem(player.getLocation(), drop);
                 }
-
                 inventory.setItem(slot, null);
             }
         }
@@ -84,16 +83,15 @@ public class WorkbenchGui implements CidarisGui {
     public void onClick(InventoryClickEvent event) {
         int slot = event.getRawSlot();
 
-        if (slot >= 54 || isCraftSlot(slot)) {
+        if (slot >= SIZE || CRAFT_SLOTS.contains(slot)) {
             event.setCancelled(false);
-
             Bukkit.getScheduler().runTaskLater(plugin, this::checkRecipe, 1L);
             return;
         }
 
         if (slot == RESULT_SLOT) {
             event.setCancelled(true);
-            if (currentRecipe != null && playerData.hasUnlocked(currentRecipe.getId())) {
+            if (currentRecipe != null && (playerData.hasUnlocked(currentRecipe.getId()) || player.hasPermission("cidaris.bypass"))) {
                 craftItem();
             }
             return;
@@ -102,17 +100,12 @@ public class WorkbenchGui implements CidarisGui {
         event.setCancelled(true);
     }
 
-    private boolean isCraftSlot(int slot) {
-        for (int s : CRAFT_SLOTS) {
-            if (s == slot) return true;
-        }
-        return false;
-    }
-
     private void checkRecipe() {
         ItemStack[] grid = new ItemStack[9];
         for (int i = 0; i < 9; i++) {
-            grid[i] = inventory.getItem(CRAFT_SLOTS[i]);
+            if (i < CRAFT_SLOTS.size()) {
+                grid[i] = inventory.getItem(CRAFT_SLOTS.get(i));
+            }
         }
 
         currentRecipe = null;
@@ -124,19 +117,13 @@ public class WorkbenchGui implements CidarisGui {
         }
 
         if (currentRecipe != null) {
-            if (playerData.hasUnlocked(currentRecipe.getId())) {
-                ItemStack resultIcon = new ItemStack(Material.WORKBENCH);
-                ItemMeta meta = resultIcon.getItemMeta();
-                meta.setDisplayName("§aFabriquer : §e" + currentRecipe.getName());
-                meta.setLore(Arrays.asList("§7Cliquez pour crafter !"));
-                resultIcon.setItemMeta(meta);
-                inventory.setItem(RESULT_SLOT, resultIcon);
+            if (playerData.hasUnlocked(currentRecipe.getId()) || player.hasPermission("cidaris.bypass")) {
+                Map<String, String> placeholders = new HashMap<>();
+                placeholders.put("%craft_name%", currentRecipe.getName());
+                ItemStack ready = ConfigItemBuilder.fromConfig(plugin, config.getConfigurationSection("ready_indicator"), placeholders);
+                inventory.setItem(RESULT_SLOT, ready);
             } else {
-                ItemStack locked = new ItemStack(Material.BARRIER);
-                ItemMeta meta = locked.getItemMeta();
-                meta.setDisplayName("§c§lCraft Verrouillé");
-                meta.setLore(Arrays.asList("§7Vous devez débloquer", "§7ce craft dans le Wiki."));
-                locked.setItemMeta(meta);
+                ItemStack locked = ConfigItemBuilder.fromConfig(plugin, config.getConfigurationSection("locked_indicator"));
                 inventory.setItem(RESULT_SLOT, locked);
             }
         } else {

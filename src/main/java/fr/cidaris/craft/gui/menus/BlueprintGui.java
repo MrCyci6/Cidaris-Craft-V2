@@ -1,17 +1,21 @@
 package fr.cidaris.craft.gui.menus;
 
 import fr.cidaris.craft.CidarisCraftPlugin;
-import fr.cidaris.craft.blueprint.BlueprintKeys;
+import fr.cidaris.craft.keys.BlueprintKeys;
+import fr.cidaris.craft.config.files.GuisConfig;
+import fr.cidaris.craft.config.files.MessagesConfig;
 import fr.cidaris.craft.gui.CidarisGui;
 import fr.cidaris.craft.model.PlayerData;
+import fr.cidaris.craft.utils.ConfigItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 
@@ -20,36 +24,60 @@ public class BlueprintGui implements CidarisGui {
     private final CidarisCraftPlugin plugin;
     private final Player player;
     private final Inventory inventory;
+    private final ConfigurationSection config;
 
-    private final int INPUT_SLOT = 11;
-    private final int BUTTON_SLOT = 13;
-    private final int OUTPUT_SLOT = 15;
+    private final int INPUT_SLOT;
+    private final int BUTTON_SLOT;
+    private final int OUTPUT_SLOT;
+    private final int SIZE;
 
     public BlueprintGui(CidarisCraftPlugin plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        this.inventory = Bukkit.createInventory(this, 27, "§8» §dAnalyse de Blueprint");
 
-        setupBackground();
+        this.config = plugin.getConfigManager().getConfig(GuisConfig.class).get().getConfigurationSection("blueprint_menu");
+
+        String title = ChatColor.translateAlternateColorCodes('&', config.getString("title", "&8» &dAnalyse de Blueprint"));
+        this.SIZE = config.getInt("size", 27);
+        this.INPUT_SLOT = config.getInt("input_slot", 11);
+        this.OUTPUT_SLOT = config.getInt("output_slot", 15);
+
+        ConfigurationSection buttonSec = config.getConfigurationSection("dynamic_items.search_button");
+        this.BUTTON_SLOT = buttonSec != null ? buttonSec.getInt("slot", 13) : 13;
+
+        this.inventory = Bukkit.createInventory(this, SIZE, title);
+        setupItems();
     }
 
-    private void setupBackground() {
-        ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
-        ItemMeta gMeta = glass.getItemMeta();
-        gMeta.setDisplayName(" ");
-        glass.setItemMeta(gMeta);
+    private void setupItems() {
+        ConfigurationSection staticItems = config.getConfigurationSection("items");
+        if (staticItems != null) {
+            for (String key : staticItems.getKeys(false)) {
+                ConfigurationSection itemSec = staticItems.getConfigurationSection(key);
+                ItemStack item = ConfigItemBuilder.fromConfig(plugin, itemSec);
 
-        for (int i = 0; i < 27; i++) {
-            if (i != INPUT_SLOT && i != BUTTON_SLOT && i != OUTPUT_SLOT) {
-                inventory.setItem(i, glass);
+                if (itemSec.contains("slot")) {
+                    int slot = itemSec.getInt("slot");
+                    if (slot >= 0 && slot < SIZE) {
+                        inventory.setItem(slot, item);
+                    }
+                }
+
+                if (itemSec.contains("slots")) {
+                    for (int slot : itemSec.getIntegerList("slots")) {
+                        if (slot >= 0 && slot < SIZE) {
+                            inventory.setItem(slot, item);
+                        }
+                    }
+                }
             }
         }
 
-        ItemStack button = new ItemStack(Material.WOOL, 1, (short) 1);
-        ItemMeta bMeta = button.getItemMeta();
-        bMeta.setDisplayName("§a§lFouiller le Blueprint");
-        button.setItemMeta(bMeta);
-        inventory.setItem(BUTTON_SLOT, button);
+        ConfigurationSection buttonSec = config.getConfigurationSection("dynamic_items.search_button");
+        if (buttonSec != null) {
+            ItemStack button = ConfigItemBuilder.fromConfig(plugin, buttonSec);
+            inventory.setItem(BUTTON_SLOT, button);
+        }
     }
 
     @Override
@@ -59,25 +87,25 @@ public class BlueprintGui implements CidarisGui {
     public void onClick(InventoryClickEvent event) {
         int slot = event.getRawSlot();
 
-        if (slot >= 27 || slot == INPUT_SLOT || slot == OUTPUT_SLOT) {
+        if (slot >= SIZE || slot == INPUT_SLOT || slot == OUTPUT_SLOT) {
             event.setCancelled(false);
             return;
         }
 
         if (slot == BUTTON_SLOT) {
             event.setCancelled(true);
-
             ItemStack inputItem = inventory.getItem(INPUT_SLOT);
+
             if (inputItem == null || inputItem.getType() == Material.AIR) return;
 
             String state = plugin.getNbt().getString(inputItem, BlueprintKeys.BP_STATE);
             if (!"sealed".equals(state)) {
-                player.sendMessage("§cCet objet n'est pas un blueprint non fouillé.");
+                player.sendMessage(plugin.getConfigManager().getConfig(MessagesConfig.class).getMessage("blueprint_not_sealed"));
                 return;
             }
 
             if (inventory.getItem(OUTPUT_SLOT) != null) {
-                player.sendMessage("§cVeuillez récupérer le blueprint analysé d'abord !");
+                player.sendMessage(plugin.getConfigManager().getConfig(MessagesConfig.class).getMessage("blueprint_output_full"));
                 return;
             }
 
@@ -85,7 +113,7 @@ public class BlueprintGui implements CidarisGui {
             ItemStack revealed = plugin.getBlueprintManager().revealBlueprint(inputItem, pData);
 
             if (revealed == null) {
-                player.sendMessage("§cVous avez déjà débloqué tous les crafts possibles !");
+                player.sendMessage(plugin.getConfigManager().getConfig(MessagesConfig.class).getMessage("blueprint_all_unlocked"));
                 return;
             }
 
@@ -96,7 +124,6 @@ public class BlueprintGui implements CidarisGui {
             }
 
             inventory.setItem(OUTPUT_SLOT, revealed);
-            player.sendMessage("§aAnalyse terminée avec succès !");
             return;
         }
 

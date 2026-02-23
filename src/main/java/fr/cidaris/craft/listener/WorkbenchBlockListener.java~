@@ -1,0 +1,72 @@
+package fr.cidaris.craft.listeners;
+
+import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.config.files.MessagesConfig;
+import fr.cidaris.craft.gui.menus.WorkbenchGui;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+
+public class WorkbenchBlockListener implements Listener {
+
+    private final CidarisCraftPlugin plugin;
+
+    public WorkbenchBlockListener(CidarisCraftPlugin plugin) {
+        this.plugin = plugin;
+    }
+
+    // 1. Poser le bloc
+    @EventHandler
+    public void onPlace(BlockPlaceEvent event) {
+        ItemStack item = event.getItemInHand();
+        if (item == null) return;
+
+        String blockType = plugin.getNbt().getString(item, "cidaris-block-type");
+        if ("workbench".equals(blockType)) {
+            Location loc = event.getBlockPlaced().getLocation();
+            plugin.getWorkbenchManager().addWorkbench(loc);
+
+            event.getPlayer().sendMessage(plugin.getConfigManager().getConfig(MessagesConfig.class).getMessage("workbench_placed"));
+        }
+    }
+
+    // 2. Casser le bloc (Admin seulement)
+    @EventHandler
+    public void onBreak(BlockBreakEvent event) {
+        Block block = event.getBlock();
+        Location loc = block.getLocation();
+
+        if (plugin.getWorkbenchManager().isWorkbench(loc)) {
+            Player p = event.getPlayer();
+            if (p.getGameMode() == GameMode.CREATIVE && p.hasPermission("cidaris.admin.workbenchblock")) {
+                plugin.getWorkbenchManager().removeWorkbench(loc);
+                p.sendMessage(plugin.getConfigManager().getConfig(MessagesConfig.class).getMessage("workbench_broken"));
+            } else {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent event) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+
+        Block block = event.getClickedBlock();
+        if (block == null) return;
+
+        if (plugin.getWorkbenchManager().isWorkbench(block.getLocation())) {
+            event.setCancelled(true);
+
+            WorkbenchGui gui = new WorkbenchGui(plugin, event.getPlayer());
+            event.getPlayer().openInventory(gui.getInventory());
+        }
+    }
+}

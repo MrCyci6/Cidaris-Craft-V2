@@ -1,5 +1,5 @@
 # ==========================================
-#        CIDARIS CRAFT - Crafts
+#        CIDARIS CRAFT - Tech Tree
 # ==========================================
 
 crafts:
@@ -18,15 +18,9 @@ crafts:
       - type: CUSTOM_ITEM
         id: "opale"
         amount: 5
-    recipe:
-      type: SHAPED
-      shape: [" O ", " O ", " S "]
-      ingredients:
-        O: { type: CUSTOM_ITEM, id: "opale" }
-        S: { type: VANILLA, material: STICK }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% opale_sword 1"]
+    commands:
+      - "lp user %player% permission set craft.opale_sword"
+      - "msg %player% &aVous savez désormais forger l'Épée en opale !"
 
   opale_helmet:
     name: "Casque en opale"
@@ -40,14 +34,8 @@ crafts:
       - type: CUSTOM_ITEM
         id: "opale"
         amount: 8
-    recipe:
-      type: SHAPED
-      shape: ["OOO", "O O", "   "]
-      ingredients:
-        O: { type: CUSTOM_ITEM, id: "opale" }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% opale_helmet 1"]
+    commands:
+      - "lp user %player% permission set craft.opale_helmet"
 
   opale_chestplate:
     name: "Plastron en opale"
@@ -61,14 +49,8 @@ crafts:
       - type: CUSTOM_ITEM
         id: "opale"
         amount: 15
-    recipe:
-      type: SHAPED
-      shape: ["O O", "OOO", "OOO"]
-      ingredients:
-        O: { type: CUSTOM_ITEM, id: "opale" }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% opale_chestplate 1"]
+    commands:
+      - "lp user %player% permission set craft.opale_chestplate"
 
   opale_leggings:
     name: "Jambières en opale"
@@ -82,14 +64,8 @@ crafts:
       - type: CUSTOM_ITEM
         id: "opale"
         amount: 12
-    recipe:
-      type: SHAPED
-      shape: ["OOO", "O O", "O O"]
-      ingredients:
-        O: { type: CUSTOM_ITEM, id: "opale" }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% opale_leggings 1"]
+    commands:
+      - "lp user %player% permission set craft.opale_leggings"
 
   opale_boots:
     name: "Bottes en opale"
@@ -103,14 +79,9 @@ crafts:
       - type: CUSTOM_ITEM
         id: "opale"
         amount: 5
-    recipe:
-      type: SHAPED
-      shape: ["   ", "O O", "O O"]
-      ingredients:
-        O: { type: CUSTOM_ITEM, id: "opale" }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% opale_boots 1"]
+    commands:
+      - "lp user %player% permission set craft.opale_boots"
+      - "broadcast &6%player% &evient de débloquer l'armure complète en Opale !"
 
   # ==========================================
   # BRANCHE B : EXTRACTION (Gauche - Colonne 1 & 2)
@@ -127,15 +98,8 @@ crafts:
       - type: CUSTOM_ITEM
         id: "opale"
         amount: 8
-    recipe:
-      type: SHAPED
-      shape: ["OOO", " S ", " S "]
-      ingredients:
-        O: { type: CUSTOM_ITEM, id: "opale" }
-        S: { type: VANILLA, material: STICK }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% opale_pickaxe 1"]
+    commands:
+      - "lp user %player% permission set craft.opale_pickaxe"
 
   opale_drill:
     name: "Foreuse Thermique"
@@ -149,17 +113,9 @@ crafts:
       - type: CUSTOM_ITEM
         id: "opale"
         amount: 20
-    console-command: "lp user %player% permission set craft.drill"
-    recipe:
-      type: SHAPED
-      shape: ["OOO", "ORO", " S "]
-      ingredients:
-        O: { type: CUSTOM_ITEM, id: "opale" }
-        R: { type: VANILLA, material: REDSTONE_BLOCK }
-        S: { type: VANILLA, material: IRON_BLOCK }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% opale_drill 1"]
+    commands:
+      - "lp user %player% permission set craft.opale_drill"
+      - "lp user %player% permission set use.drill"
 
   opale_excavator:
     name: "Excavatrice de l'Abîme"
@@ -173,15 +129,8 @@ crafts:
       - type: CUSTOM_ITEM
         id: "opale"
         amount: 64
-    recipe:
-      type: SHAPED
-      shape: ["DDD", "DOD", "DDD"]
-      ingredients:
-        D: { type: VANILLA, material: DIAMOND_BLOCK }
-        O: { type: CUSTOM_ITEM, id: "opale_drill" }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% opale_excavator 1"]
+    commands:
+      - "lp user %player% permission set craft.opale_excavator"
 
   # ==========================================
   # BRANCHE C : TECHNOLOGIE (Droite - Colonne 6 & 7)
@@ -195,16 +144,8 @@ crafts:
     costs:
       - type: MONEY
         amount: 200
-    recipe:
-      type: SHAPED
-      shape: ["IRI", "RDR", "IRI"]
-      ingredients:
-        I: { type: VANILLA, material: IRON_INGOT }
-        R: { type: VANILLA, material: REDSTONE }
-        D: { type: VANILLA, material: DIAMOND }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% basic_core 1"]
+    commands:
+      - "lp user %player% permission set craft.basic_core"
 
   opale_jetpack:
     name: "Jetpack en Opale"
@@ -218,17 +159,9 @@ crafts:
       - type: CUSTOM_ITEM
         id: "basic_core"
         amount: 2
-    console-command: "lp user %player% permission set cidaris.jetpack"
-    recipe:
-      type: SHAPED
-      shape: ["O O", "OCO", "F F"]
-      ingredients:
-        O: { type: CUSTOM_ITEM, id: "opale" }
-        C: { type: CUSTOM_ITEM, id: "basic_core" }
-        F: { type: VANILLA, material: BLAZE_ROD }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% opale_jetpack 1"]
+    commands:
+      - "lp user %player% permission set craft.opale_jetpack"
+      - "lp user %player% permission set cidaris.jetpack.fly"
 
   opale_omnitools:
     name: "Omni-Tools de Cidaris"
@@ -242,18 +175,8 @@ crafts:
       - type: CUSTOM_ITEM
         id: "opale"
         amount: 32
-    recipe:
-      type: SHAPED
-      shape: ["P AX", " C ", " S "]
-      ingredients:
-        P: { type: CUSTOM_ITEM, id: "opale_pickaxe" }
-        A: { type: VANILLA, material: DIAMOND_AXE }
-        X: { type: CUSTOM_ITEM, id: "opale_sword" }
-        C: { type: CUSTOM_ITEM, id: "basic_core" }
-        S: { type: VANILLA, material: BLAZE_ROD }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% opale_omnitools 1"]
+    commands:
+      - "lp user %player% permission set craft.opale_omnitools"
 
   # ==========================================
   # BRANCHE D : UTILITAIRE (Tiers 5+)
@@ -263,16 +186,10 @@ crafts:
     gui:
       column: 4
       tier: 5
-    parents: [opale_boots, opale_omnitools] # Nécessite deux branches !
+    parents: [opale_boots, opale_omnitools]
     costs:
       - type: MONEY
         amount: 10000
-    recipe:
-      type: SHAPED
-      shape: ["  E", " S ", "S  "]
-      ingredients:
-        E: { type: VANILLA, material: EYEOF_ENDER_SOUL }
-        S: { type: VANILLA, material: BLAZE_ROD }
-      result:
-        mode: COMMAND
-        commands: ["items give %player% teleport_staff 1"]
+    commands:
+      - "lp user %player% permission set craft.teleport_staff"
+      - "lp user %player% permission set essentials.tpa"

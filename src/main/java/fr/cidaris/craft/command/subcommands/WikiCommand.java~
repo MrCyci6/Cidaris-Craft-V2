@@ -3,7 +3,6 @@ package fr.cidaris.craft.command.subcommands;
 import fr.cidaris.craft.CidarisCraftPlugin;
 import fr.cidaris.craft.command.SubCommand;
 import fr.cidaris.craft.gui.menus.WikiGui;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class WikiCommand extends SubCommand {
@@ -31,8 +30,7 @@ public class WikiCommand extends SubCommand {
     }
 
     @Override
-    public void perform(CommandSender sender, String[] args) {
-        Player player = (Player) sender;
+    public void perform(Player player, String[] args) {
         WikiGui wiki = new WikiGui(plugin, player, 0);
         player.openInventory(wiki.getInventory());
     }

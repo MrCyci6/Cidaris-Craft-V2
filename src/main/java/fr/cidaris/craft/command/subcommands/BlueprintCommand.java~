@@ -2,15 +2,15 @@ package fr.cidaris.craft.command.subcommands;
 
 import fr.cidaris.craft.CidarisCraftPlugin;
 import fr.cidaris.craft.command.SubCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class BlueprintCommand extends SubCommand {
 
-    private final CidarisCraftPlugin plugin;
 
     public BlueprintCommand(CidarisCraftPlugin plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class BlueprintCommand extends SubCommand {
     public String getDescription() { return "Vous donne un Blueprint scellé."; }
 
     @Override
-    public String getSyntax() { return "/ccraft bp <random|specific> [id]"; }
+    public String getSyntax() { return "/ccraft bp <joueur> <random|specific> [id]"; }
 
     @Override
     public String getPermission() { return "cidaris.admin.give"; }
@@ -33,34 +33,41 @@ public class BlueprintCommand extends SubCommand {
         }
 
         String type = args[1].toLowerCase();
+        Player target = Bukkit.getPlayer(args[2]);
+
+        if (target == null) {
+            player.sendMessage(msgConfig.getMessage("player_not_found"));
+            return;
+        }
+
         ItemStack blueprintItem = null;
 
         if (type.equals("random")) {
             blueprintItem = plugin.getBlueprintManager().createSealedRandom();
-            player.sendMessage("§a[Cidaris] Vous avez reçu un Blueprint Aléatoire !");
 
         } else if (type.equals("specific")) {
-            if (args.length < 3) {
-                player.sendMessage("§cVous devez préciser l'ID du craft. Ex: /ccraft bp specific opale_sword");
+            if (args.length < 4) {
+                player.sendMessage("§cSyntaxe: " + getSyntax());
                 return;
             }
 
-            String craftId = args[2];
+            String craftId = args[3];
             if (plugin.getCraftManager().getCraft(craftId) == null) {
-                player.sendMessage("§cErreur : Le craft '" + craftId + "' n'existe pas dans crafts.yml !");
+                player.sendMessage(msgConfig.getMessage("craft_not_found").replace("%craft%", craftId));
                 return;
             }
 
             blueprintItem = plugin.getBlueprintManager().createSealedSpecific(craftId);
-            player.sendMessage("§a[Cidaris] Vous avez reçu un Blueprint Spécifique pour : §e" + craftId);
 
         } else {
-            player.sendMessage("§cType inconnu. Utilisez 'random' ou 'specific'.");
+            player.sendMessage("§cSyntaxe: " + getSyntax());
             return;
         }
 
         if (blueprintItem != null) {
-            player.getInventory().addItem(blueprintItem);
+            target.getInventory().addItem(blueprintItem);
+            player.sendMessage(msgConfig.getMessage("blueprint_received"));
+
         }
     }
 }

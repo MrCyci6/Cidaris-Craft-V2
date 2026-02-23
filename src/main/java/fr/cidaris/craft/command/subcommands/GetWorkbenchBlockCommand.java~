@@ -1,0 +1,44 @@
+package fr.cidaris.craft.command.subcommands;
+
+import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.command.SubCommand;
+import fr.cidaris.craft.config.files.MainConfig;
+import fr.cidaris.craft.config.files.MessagesConfig;
+import fr.cidaris.craft.utils.ConfigItemBuilder;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+public class GetWorkbenchBlockCommand extends SubCommand {
+
+
+    public GetWorkbenchBlockCommand(CidarisCraftPlugin plugin) {
+        super(plugin);
+    }
+
+    @Override
+    public String getName() { return "workbenchblock"; }
+
+    @Override
+    public String getDescription() { return "Récupère le bloc physique du Workbench."; }
+
+    @Override
+    public String getSyntax() { return "/ccraft workbenchblock"; }
+
+    @Override
+    public String getPermission() { return "cidaris.admin.workbenchblock"; }
+
+    @Override
+    public void perform(Player player, String[] args) {
+        ConfigurationSection section = plugin.getConfigManager().getConfig(MainConfig.class).get().getConfigurationSection("workbench_block");
+        ItemStack block = ConfigItemBuilder.fromConfig(plugin, section);
+
+        // On y glisse un NBT tag caché pour le reconnaitre quand on le pose !
+        block = plugin.getNbt().setString(block, "cidaris-block-type", "workbench");
+
+        player.getInventory().addItem(block);
+
+        MessagesConfig msgConfig = plugin.getConfigManager().getConfig(MessagesConfig.class);
+        player.sendMessage(msgConfig.getMessage("workbench_block_given"));
+    }
+}

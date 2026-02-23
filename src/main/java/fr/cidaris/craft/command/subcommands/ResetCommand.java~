@@ -4,7 +4,6 @@ import fr.cidaris.craft.CidarisCraftPlugin;
 import fr.cidaris.craft.command.SubCommand;
 import fr.cidaris.craft.model.PlayerData;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ResetCommand extends SubCommand {
@@ -32,15 +31,15 @@ public class ResetCommand extends SubCommand {
     }
 
     @Override
-    public void perform(CommandSender sender, String[] args) {
+    public void perform(Player player, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage("§cUsage: " + getSyntax());
+            player.sendMessage("§cUsage: " + getSyntax());
             return;
         }
 
         Player target = Bukkit.getPlayer(args[1]);
         if (target == null) {
-            sender.sendMessage(msgConfig.getMessage("player_not_found"));
+            player.sendMessage(msgConfig.getMessage("player_not_found"));
             return;
         }
 
@@ -50,7 +49,7 @@ public class ResetCommand extends SubCommand {
         plugin.getPlayerDataManager().saveAndRemoveFromCache(target.getUniqueId());
         plugin.getPlayerDataManager().loadIntoCache(target.getUniqueId());
 
-        sender.sendMessage(msgConfig.getMessage("admin_reset_success").replace("%player%", target.getName()));
+        player.sendMessage(msgConfig.getMessage("admin_reset_success").replace("%player%", target.getName()));
         target.sendMessage(msgConfig.getMessage("admin_reset_notify"));
     }
 }

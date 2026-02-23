@@ -1,0 +1,102 @@
+package fr.cidaris.craft.database;
+
+import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.model.PlayerData;
+import fr.cidaris.craft.model.enums.UnlockMethod;
+
+import java.sql.*;
+import java.util.Map;
+import java.util.UUID;
+
+public abstract class AbstractSqlDatabase implements DatabaseProvider {
+
+    protected final CidarisCraftPlugin plugin;
+    protected Connection connection;
+
+    public AbstractSqlDatabase(CidarisCraftPlugin plugin) {
+        this.plugin = plugin;
+    }
+
+    // Chaque base de données va définir sa propre façon de se connecter
+    protected abstract void connect() throws SQLException;
+
+    public void init() {
+        try {
+            connect();
+            try (Statement st = connection.createStatement()) {
+                st.execute("CREATE TABLE IF NOT EXISTS cidaris_players (" +
+                        "uuid VARCHAR(36) PRIMARY KEY, " +
+                        "unlocked_crafts TEXT" +
+                        ")");
+            }
+        } catch (SQLException e) {
+            plugin.getLogger().severe("Erreur d'initialisation SQL : " + e.getMessage());
+        }
+    }
+
+    public void close() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            plugin.getLogger().warning("Erreur lors de la fermeture SQL : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public PlayerData loadPlayer(UUID uuid) {
+        PlayerData data = new PlayerData(uuid);
+        String query = "SELECT unlocked_crafts FROM cidaris_players WHERE uuid = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, uuid.toString());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    deserializeCrafts(data, rs.getString("unlocked_crafts"));
+                }
+            }
+        } catch (SQLException e) {
+            plugin.getLogger().severe("Erreur SQL lors du chargement de " + uuid + " : " + e.getMessage());
+        }
+        return data;
+    }
+
+    @Override
+    public void savePlayer(PlayerData data) {
+        String serialized = serializeCrafts(data.getUnlockedCrafts());
+
+        try {
+            // Vérification de l'existence pour savoir si on UPDATE ou INSERT
+            boolean exists;
+            try (PreparedStatement check = connection.prepareStatement("SELECT 1 FROM cidaris_players WHERE uuid = ?")) {
+                check.setString(1, data.getUuid().toString());
+                exists = check.executeQuery().next();
+            }
+
+            if (exists) {
+                try (PreparedStatement update = connection.prepareStatement("UPDATE cidaris_players SET unlocked_crafts = ? WHERE uuid = ?")) {
+                    update.setString(1, serialized);
+                    update.setString(2, data.getUuid().toString());
+                    update.executeUpdate();
+                }
+            } else {
+                try (PreparedStatement insert = connection.prepareStatement("INSERT INTO cidaris_players (uuid, unlocked_crafts) VALUES (?, ?)")) {
+                    insert.setString(1, data.getUuid().toString());
+                    insert.setString(2, serialized);
+                    insert.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            plugin.getLogger().severe("Erreur SQL lors de la sauvegarde de " + data.getUuid() + " : " + e.getMessage());
+        }
+    }
+
+    // --- Sérialisation "Fait Maison" (Rapide et léger pour SQL) ---
+    private String serializeCrafts(Map<String, UnlockMethod> crafts) {
+        if (crafts == null || crafts.isEmpty()) return "";
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, UnlockMethod> entry : crafts.entrySet()) {
+            sb.append(entry.getKey()).append("=").append(entry.getValue().name()).append(";");
+        }
+        return sb.toString();

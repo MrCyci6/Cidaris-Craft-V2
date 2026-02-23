@@ -1,0 +1,4 @@
+package fr.cidaris.craft.config.files;
+
+public class MainConfig {
+}

@@ -22,6 +22,7 @@ blueprint_menu:
       hdb: "6101"
       material: MAGNIFYING_GLASS
       name: "&a&lFouiller le Blueprint"
+      lore: []
       glow: true
 
 # 3. L'Arbre de Craft (Wiki)

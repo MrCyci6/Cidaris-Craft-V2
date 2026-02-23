@@ -3,7 +3,6 @@ package fr.cidaris.craft.command.subcommands;
 import fr.cidaris.craft.CidarisCraftPlugin;
 import fr.cidaris.craft.command.SubCommand;
 import fr.cidaris.craft.config.files.MessagesConfig;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ReloadCommand extends SubCommand {
@@ -41,9 +40,9 @@ public class ReloadCommand extends SubCommand {
         long timeTaken = System.currentTimeMillis() - startTime;
 
         MessagesConfig msgConfig = plugin.getConfigManager().getConfig(MessagesConfig.class);
-        sender.sendMessage(msgConfig.getMessage("reload_success") + " §7(" + timeTaken + "ms)");
+        player.sendMessage(msgConfig.getMessage("reload_success") + " §7(" + timeTaken + "ms)");
 
         int craftCount = plugin.getCraftManager().getAllCrafts().size();
-        sender.sendMessage("§8» §e" + craftCount + " §7crafts chargés en mémoire.");
+        player.sendMessage("§8» §e" + craftCount + " §7crafts chargés en mémoire.");
     }
 }

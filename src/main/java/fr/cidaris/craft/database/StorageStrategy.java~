@@ -1,0 +1,18 @@
+package fr.cidaris.craft.database;
+
+import fr.cidaris.craft.model.PlayerData;
+import java.util.UUID;
+
+public interface StorageStrategy {
+    /** Initialise la connexion et crée les tables si nécessaire */
+    void init() throws Exception;
+
+    /** Ferme la connexion proprement */
+    void close();
+
+    /** Charge les données d'un joueur */
+    PlayerData loadPlayer(UUID uuid);
+
+    /** Sauvegarde les données d'un joueur */
+    void savePlayer(PlayerData data);
+}

@@ -195,7 +195,7 @@ public class WikiGui implements CidarisGui {
 
         playerData.unlockCraft(craftId, UnlockMethod.NORMAL);
         player.sendMessage(plugin.getConfigManager().getConfig(MessagesConfig.class).getMessage("unlock_success_wiki").replace("%craft%", craft.getName()));
-        plugin.getWebhookManager().sendUnlockLog(player, craft.getName(), craft.getCommands());
+        plugin.getWebhookManager().sendUnlockMessage(player, craft.getName());
 
         setupItems();
     }

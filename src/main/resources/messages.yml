@@ -4,30 +4,28 @@
 
 prefix: "&8[&bCidaris&8] &7"
 
-# --- Déblocage ---
-unlock:
-  success_wiki: "&aFélicitations ! Vous avez débloqué &e%craft% &a!"
-  success_blueprint: "&dVous avez consommé un Blueprint et débloqué &e%craft% &den ignorant tous les prérequis !"
-  error_parents: "&cVous devez d'abord débloquer les crafts précédents dans l'arbre."
-  error_funds: "&cVous n'avez pas les ressources nécessaires pour débloquer ceci."
-  already_unlocked: "&cVous connaissez déjà cette recette."
+# --- Déblocage (Wiki) ---
+unlock_success_wiki: "&aFélicitations ! Vous avez débloqué &e%craft% &a!"
+unlock_error_parents: "&cVous devez d'abord débloquer les crafts précédents dans l'arbre."
+unlock_error_funds: "&cVous n'avez pas les ressources nécessaires pour débloquer ceci."
+already_unlocked: "&cVous connaissez déjà cette recette."
 
 # --- Blueprints ---
-blueprint:
-  searched: "&aAnalyse terminée... Ce blueprint contient la recette de : &e%craft% &a!"
-  received: "&aVous avez reçu un &bBlueprint Mystère &a!"
-
-# --- Workbench ---
-workbench:
-  invalid_recipe: "&cCette recette n'existe pas dans le Workbench."
-  locked_craft: "&cVous devez débloquer &e%craft% &cdans l'arbre avant de pouvoir le fabriquer."
+blueprint_received: "&aVous avez reçu un &bBlueprint Mystère &a!"
+blueprint_not_sealed: "&cCet objet n'est pas un blueprint non fouillé."
+blueprint_output_full: "&cVeuillez récupérer le blueprint analysé d'abord !"
+blueprint_all_unlocked: "&cVous avez déjà débloqué tous les crafts possibles !"
+blueprint_searched: "&aAnalyse terminée... Ce blueprint contient la recette de : &e%craft% &a!"
+blueprint_already_known: "&cVous connaissez déjà ce craft ! Vous pouvez l'échanger à un autre joueur."
+blueprint_success: "&dVous avez lu le plan et débloqué : &e%craft% &den ignorant tous les prérequis !"
 
 # --- Admin ---
-admin:
-  reload_success: "&aConfiguration de Cidaris Craft rechargée avec succès !"
-  no_permission: "&cVous n'avez pas la permission d'utiliser cette commande."
-  player_not_found: "&cJoueur introuvable."
-  craft_not_found: "&cLe craft %id% n'existe pas."
-  reset_success: "&aLes crafts de &e%player% &aont été réinitialisés."
-  givecraft_success: "&aLe craft &e%id% &aa été débloqué pour &e%player%."
-  target_reset_msg: "&6[Cidaris] Vos crafts ont été réinitialisés par un administrateur."
+reload_success: "&aConfiguration de Cidaris Craft rechargée avec succès !"
+no_permission: "&cVous n'avez pas la permission d'utiliser cette commande."
+player_not_found: "&cJoueur introuvable."
+craft_not_found: "&cLe craft &7%craft% &cn'existe pas."
+
+admin_reset_success: "&aLes crafts de &e%player% &aont été réinitialisés."
+admin_reset_notify: "&6[Cidaris] Vos crafts ont été réinitialisés par un administrateur."
+admin_givecraft_success: "&aLe craft &e%craft% &aa été débloqué pour &e%player%."
+admin_givecraft_notify: "&a[Cidaris] Vous avez débloqué le craft : &e%craft%"

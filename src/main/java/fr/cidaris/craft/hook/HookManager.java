@@ -14,8 +14,6 @@ public class HookManager {
     }
 
     public void registerHook(PluginHook hook) {
-        plugin.getLogger().info("Tentative d'accroche au plugin : " + hook.getPluginName() + "...");
-
         if (hook.setup(plugin)) {
             hooks.put(hook.getClass(), hook);
             plugin.getLogger().info("✔ " + hook.getPluginName() + " accroché avec succès !");

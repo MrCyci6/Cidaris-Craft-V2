@@ -1,16 +1,15 @@
-package fr.cidaris.craft.blueprint;
+package fr.cidaris.craft.manager;
 
 import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.keys.BlueprintKeys;
+import fr.cidaris.craft.config.files.MainConfig;
 import fr.cidaris.craft.model.CraftDefinition;
 import fr.cidaris.craft.model.PlayerData;
-import org.bukkit.Material;
+import fr.cidaris.craft.utils.ConfigItemBuilder;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class BlueprintManager {
 
@@ -22,11 +21,8 @@ public class BlueprintManager {
     }
 
     public ItemStack createSealedSpecific(String craftId) {
-        ItemStack item = new ItemStack(Material.PAPER);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§b§lBlueprint Mystère §7(Spécifique)");
-        meta.setLore(Arrays.asList("§7Cet objet contient un plan précis.", "§7Utilisez la table d'analyse pour le révéler."));
-        item.setItemMeta(meta);
+        ConfigurationSection bpConfig = plugin.getConfigManager().getConfig(MainConfig.class).get().getConfigurationSection("blueprint");
+        ItemStack item = ConfigItemBuilder.fromConfig(plugin, bpConfig);
 
         item = plugin.getNbt().setString(item, BlueprintKeys.BP_STATE, "sealed");
         item = plugin.getNbt().setString(item, BlueprintKeys.BP_TYPE, "specific");
@@ -35,11 +31,8 @@ public class BlueprintManager {
     }
 
     public ItemStack createSealedRandom() {
-        ItemStack item = new ItemStack(Material.PAPER);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§d§lBlueprint Mystère §7(Aléatoire)");
-        meta.setLore(Arrays.asList("§7Cet objet contient un plan aléatoire.", "§7Utilisez la table d'analyse pour le révéler."));
-        item.setItemMeta(meta);
+        ConfigurationSection bpConfig = plugin.getConfigManager().getConfig(MainConfig.class).get().getConfigurationSection("blueprint");
+        ItemStack item = ConfigItemBuilder.fromConfig(plugin, bpConfig);
 
         item = plugin.getNbt().setString(item, BlueprintKeys.BP_STATE, "sealed");
         item = plugin.getNbt().setString(item, BlueprintKeys.BP_TYPE, "random_all");
@@ -69,16 +62,11 @@ public class BlueprintManager {
         CraftDefinition resultCraft = plugin.getCraftManager().getCraft(craftId);
         if (resultCraft == null) return null;
 
-        ItemStack revealed = new ItemStack(Material.EMPTY_MAP);
-        ItemMeta meta = revealed.getItemMeta();
-        meta.setDisplayName("§a§lPlan : §e" + resultCraft.getName());
-        meta.setLore(Arrays.asList(
-                "§7Vous avez analysé ce plan.",
-                "",
-                "§a► Clic-Droit pour débloquer",
-                "§a  sans payer de ressources !"
-        ));
-        revealed.setItemMeta(meta);
+
+        ConfigurationSection bpConfig = plugin.getConfigManager().getConfig(MainConfig.class).get().getConfigurationSection("blueprint_revealed");
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("%craft_name%", resultCraft.getName());
+        ItemStack revealed = ConfigItemBuilder.fromConfig(plugin, bpConfig, placeholders);
 
         revealed = plugin.getNbt().setString(revealed, BlueprintKeys.BP_STATE, "revealed");
         revealed = plugin.getNbt().setString(revealed, BlueprintKeys.BP_CRAFT, craftId);

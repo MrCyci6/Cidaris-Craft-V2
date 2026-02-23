@@ -1,10 +1,12 @@
 package fr.cidaris.craft.listener;
 
 import fr.cidaris.craft.CidarisCraftPlugin;
-import fr.cidaris.craft.blueprint.BlueprintKeys;
+import fr.cidaris.craft.keys.BlueprintKeys;
+import fr.cidaris.craft.config.files.MessagesConfig;
 import fr.cidaris.craft.model.CraftDefinition;
 import fr.cidaris.craft.model.PlayerData;
 import fr.cidaris.craft.model.enums.UnlockMethod;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,8 +44,15 @@ public class BlueprintInteractListener implements Listener {
         PlayerData pData = plugin.getPlayerDataManager().getPlayerData(player.getUniqueId());
 
         if (pData.hasUnlocked(craftId)) {
-            player.sendMessage("§cVous connaissez déjà ce craft ! Vous pouvez l'échanger à un autre joueur.");
+            player.sendMessage(plugin.getConfigManager().getConfig(MessagesConfig.class).getMessage("blueprint_already_known"));
             return;
+        }
+
+        if (craft.getCommands() != null) {
+            for (String cmd : craft.getCommands()) {
+                String formattedCmd = cmd.replace("%player%", player.getName()).replace("%craft%", craft.getId());
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), formattedCmd);
+            }
         }
 
         pData.unlockCraft(craftId, UnlockMethod.BLUEPRINT);
@@ -54,6 +63,8 @@ public class BlueprintInteractListener implements Listener {
             player.setItemInHand(null);
         }
 
-        player.sendMessage("§dVous avez lu le plan et débloqué : §e" + craft.getName() + " §d!");
+        player.sendMessage(plugin.getConfigManager().getConfig(MessagesConfig.class).getMessage("blueprint_success").replace("%craft%", craft.getName()));
+
+        plugin.getWebhookManager().sendUnlockLog(player, craft.getName(), craft.getCommands());
     }
 }

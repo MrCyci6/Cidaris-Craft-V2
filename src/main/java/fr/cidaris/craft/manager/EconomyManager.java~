@@ -81,7 +81,7 @@ public class EconomyManager {
 
             boolean match = false;
             if (custom) {
-                String customId = plugin.getNbt().getString(item, CidarisItemKeys.CUSTOM_ID);
+                String customId = plugin.getNbt().getString(item, "cidaris-item-id");
                 match = id.equals(customId);
             } else {
                 match = item.getType().name().equals(id);
