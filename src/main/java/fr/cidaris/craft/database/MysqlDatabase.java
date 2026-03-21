@@ -1,6 +1,6 @@
 package fr.cidaris.craft.database;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.config.files.MainConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class MysqlDatabase extends AbstractSqlDatabase {
 
-    public MysqlDatabase(CidarisCraftPlugin plugin) {
+    public MysqlDatabase(CidarisRecipePlugin plugin) {
         super(plugin);
         init(); // Appelle la création de table définie dans AbstractSqlDatabase
     }

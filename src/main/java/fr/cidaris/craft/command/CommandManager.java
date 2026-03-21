@@ -1,6 +1,6 @@
 package fr.cidaris.craft.command;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.command.subcommands.*;
 import fr.cidaris.craft.config.files.MessagesConfig;
 import org.bukkit.command.Command;
@@ -13,10 +13,10 @@ import java.util.List;
 
 public class CommandManager implements CommandExecutor {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
     private final List<SubCommand> subcommands = new ArrayList<>();
 
-    public CommandManager(CidarisCraftPlugin plugin) {
+    public CommandManager(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
         subcommands.add(new WikiCommand(plugin));
         subcommands.add(new GiveCraftCommand(plugin));

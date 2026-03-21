@@ -1,6 +1,6 @@
 package fr.cidaris.craft.command.subcommands;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.command.SubCommand;
 import fr.cidaris.craft.model.PlayerData;
 import org.bukkit.Bukkit;
@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class ResetCommand extends SubCommand {
 
 
-    public ResetCommand(CidarisCraftPlugin plugin) {
+    public ResetCommand(CidarisRecipePlugin plugin) {
         super(plugin);
     }
 

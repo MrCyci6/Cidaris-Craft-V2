@@ -1,6 +1,6 @@
 package fr.cidaris.craft.gui.menus;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.config.files.GuisConfig;
 import fr.cidaris.craft.config.files.MainConfig;
 import fr.cidaris.craft.config.files.MessagesConfig;
@@ -27,7 +27,7 @@ import java.util.List;
 
 public class WikiGui implements CidarisGui {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
     private final Player player;
     private final PlayerData playerData;
     private final Inventory inventory;
@@ -38,7 +38,7 @@ public class WikiGui implements CidarisGui {
     private final int DOWN_SLOT;
     private int scrollOffset;
 
-    public WikiGui(CidarisCraftPlugin plugin, Player player, int scrollOffset) {
+    public WikiGui(CidarisRecipePlugin plugin, Player player, int scrollOffset) {
         this.plugin = plugin;
         this.player = player;
         this.playerData = plugin.getPlayerDataManager().getPlayerData(player.getUniqueId());

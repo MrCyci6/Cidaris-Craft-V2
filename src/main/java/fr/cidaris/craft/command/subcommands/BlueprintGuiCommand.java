@@ -1,6 +1,6 @@
 package fr.cidaris.craft.command.subcommands;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.command.SubCommand;
 import fr.cidaris.craft.gui.menus.BlueprintGui;
 import org.bukkit.command.CommandSender;
@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class BlueprintGuiCommand extends SubCommand {
 
-    public BlueprintGuiCommand(CidarisCraftPlugin plugin) {
+    public BlueprintGuiCommand(CidarisRecipePlugin plugin) {
         super(plugin);
     }
 

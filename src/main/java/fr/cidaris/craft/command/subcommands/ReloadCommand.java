@@ -1,14 +1,13 @@
 package fr.cidaris.craft.command.subcommands;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.command.SubCommand;
 import fr.cidaris.craft.config.files.MessagesConfig;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class ReloadCommand extends SubCommand {
 
-    public ReloadCommand(CidarisCraftPlugin plugin) {
+    public ReloadCommand(CidarisRecipePlugin plugin) {
         super(plugin);
     }
 

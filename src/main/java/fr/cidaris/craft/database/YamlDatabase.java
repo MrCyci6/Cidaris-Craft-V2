@@ -1,6 +1,6 @@
 package fr.cidaris.craft.database;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.model.PlayerData;
 import fr.cidaris.craft.model.enums.UnlockMethod;
 import org.bukkit.configuration.ConfigurationSection;
@@ -14,10 +14,10 @@ import java.util.UUID;
 
 public class YamlDatabase implements DatabaseProvider {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
     private final File folder;
 
-    public YamlDatabase(CidarisCraftPlugin plugin) {
+    public YamlDatabase(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
         this.folder = new File(plugin.getDataFolder(), "players");
         if (!folder.exists()) {

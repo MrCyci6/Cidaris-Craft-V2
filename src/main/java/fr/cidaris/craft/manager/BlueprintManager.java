@@ -1,6 +1,6 @@
 package fr.cidaris.craft.manager;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.keys.BlueprintKeys;
 import fr.cidaris.craft.config.files.MainConfig;
 import fr.cidaris.craft.model.CraftDefinition;
@@ -13,10 +13,10 @@ import java.util.*;
 
 public class BlueprintManager {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
     private final Random random = new Random();
 
-    public BlueprintManager(CidarisCraftPlugin plugin) {
+    public BlueprintManager(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
     }
 

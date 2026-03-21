@@ -19,7 +19,7 @@ import fr.cidaris.craft.nms.nbt.v1_8_R3.NbtAdapter_v1_8_R3;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CidarisCraftPlugin extends JavaPlugin {
+public class CidarisRecipePlugin extends JavaPlugin {
 
     private NbtAdapter nbt;
     private ConfigManager configManager;

@@ -1,6 +1,6 @@
 package fr.cidaris.craft.manager;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.model.*;
 import fr.cidaris.craft.model.enums.*;
 import org.bukkit.configuration.ConfigurationSection;
@@ -12,10 +12,10 @@ import java.util.*;
 
 public class CraftManager {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
     private final Map<String, CraftDefinition> craftRegistry = new LinkedHashMap<>(); // Préserve l'ordre
 
-    public CraftManager(CidarisCraftPlugin plugin) {
+    public CraftManager(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
     }
 

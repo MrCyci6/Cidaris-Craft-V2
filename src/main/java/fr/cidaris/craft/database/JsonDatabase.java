@@ -3,7 +3,7 @@ package fr.cidaris.craft.database;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.model.PlayerData;
 import fr.cidaris.craft.model.enums.UnlockMethod;
 
@@ -14,11 +14,11 @@ import java.util.UUID;
 
 public class JsonDatabase implements DatabaseProvider {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
     private final File folder;
     private final Gson gson;
 
-    public JsonDatabase(CidarisCraftPlugin plugin) {
+    public JsonDatabase(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
         this.folder = new File(plugin.getDataFolder(), "players");
 

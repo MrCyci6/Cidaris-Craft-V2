@@ -1,6 +1,6 @@
 package fr.cidaris.craft.database;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.config.files.MainConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class PostgresDatabase extends AbstractSqlDatabase {
 
-    public PostgresDatabase(CidarisCraftPlugin plugin) {
+    public PostgresDatabase(CidarisRecipePlugin plugin) {
         super(plugin);
         init();
     }

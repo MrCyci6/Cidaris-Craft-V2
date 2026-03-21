@@ -1,6 +1,6 @@
 package fr.cidaris.craft.database;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.model.PlayerData;
 import fr.cidaris.craft.model.enums.UnlockMethod;
 
@@ -10,10 +10,10 @@ import java.util.UUID;
 
 public abstract class AbstractSqlDatabase implements DatabaseProvider {
 
-    protected final CidarisCraftPlugin plugin;
+    protected final CidarisRecipePlugin plugin;
     protected Connection connection;
 
-    public AbstractSqlDatabase(CidarisCraftPlugin plugin) {
+    public AbstractSqlDatabase(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
     }
 

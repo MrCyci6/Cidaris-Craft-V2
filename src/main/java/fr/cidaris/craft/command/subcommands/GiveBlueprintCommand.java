@@ -1,6 +1,6 @@
 package fr.cidaris.craft.command.subcommands;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.command.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 public class GiveBlueprintCommand extends SubCommand {
 
 
-    public GiveBlueprintCommand(CidarisCraftPlugin plugin) {
+    public GiveBlueprintCommand(CidarisRecipePlugin plugin) {
         super(plugin);
     }
 

@@ -1,6 +1,6 @@
 package fr.cidaris.craft.manager;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.config.files.MainConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,9 +13,9 @@ import java.util.List;
 
 public class WebhookManager {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
 
-    public WebhookManager(CidarisCraftPlugin plugin) {
+    public WebhookManager(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
     }
 

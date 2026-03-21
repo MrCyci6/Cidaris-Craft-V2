@@ -1,6 +1,6 @@
 package fr.cidaris.craft.utils;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.hook.impl.HeadDatabaseHook;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -16,12 +16,12 @@ import java.util.Map;
 public class ConfigItemBuilder {
 
     // Méthode 1 : Sans placeholders (pour les items statiques comme les vitres ou flèches)
-    public static ItemStack fromConfig(CidarisCraftPlugin plugin, ConfigurationSection section) {
+    public static ItemStack fromConfig(CidarisRecipePlugin plugin, ConfigurationSection section) {
         return fromConfig(plugin, section, new HashMap<>());
     }
 
     // Méthode 2 : Avec placeholders dynamiques
-    public static ItemStack fromConfig(CidarisCraftPlugin plugin, ConfigurationSection section, Map<String, String> placeholders) {
+    public static ItemStack fromConfig(CidarisRecipePlugin plugin, ConfigurationSection section, Map<String, String> placeholders) {
         if (section == null) return new ItemStack(Material.PAPER);
 
         ItemStack item = null;

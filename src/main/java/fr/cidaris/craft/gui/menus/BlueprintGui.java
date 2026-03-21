@@ -1,6 +1,6 @@
 package fr.cidaris.craft.gui.menus;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.keys.BlueprintKeys;
 import fr.cidaris.craft.config.files.GuisConfig;
 import fr.cidaris.craft.config.files.MessagesConfig;
@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 public class BlueprintGui implements CidarisGui {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
     private final Player player;
     private final Inventory inventory;
     private final ConfigurationSection config;
@@ -31,7 +31,7 @@ public class BlueprintGui implements CidarisGui {
     private final int OUTPUT_SLOT;
     private final int SIZE;
 
-    public BlueprintGui(CidarisCraftPlugin plugin, Player player) {
+    public BlueprintGui(CidarisRecipePlugin plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
 

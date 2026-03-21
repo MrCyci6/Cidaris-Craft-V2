@@ -1,6 +1,6 @@
 package fr.cidaris.craft.listener;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.keys.BlueprintKeys;
 import fr.cidaris.craft.config.files.MessagesConfig;
 import fr.cidaris.craft.model.CraftDefinition;
@@ -17,9 +17,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class BlueprintInteractListener implements Listener {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
 
-    public BlueprintInteractListener(CidarisCraftPlugin plugin) {
+    public BlueprintInteractListener(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
     }
 

@@ -1,15 +1,15 @@
 package fr.cidaris.craft.hook;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import java.util.HashMap;
 import java.util.Map;
 
 public class HookManager {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
     private final Map<Class<? extends PluginHook>, PluginHook> hooks = new HashMap<>();
 
-    public HookManager(CidarisCraftPlugin plugin) {
+    public HookManager(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
     }
 

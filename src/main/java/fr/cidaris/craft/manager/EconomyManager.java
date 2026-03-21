@@ -1,6 +1,6 @@
 package fr.cidaris.craft.manager;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.hook.impl.VaultHook;
 import fr.cidaris.craft.keys.CidarisItemKeys;
 import fr.cidaris.craft.model.Cost;
@@ -12,9 +12,9 @@ import java.util.List;
 
 public class EconomyManager {
 
-    private final CidarisCraftPlugin plugin;
+    private final CidarisRecipePlugin plugin;
 
-    public EconomyManager(CidarisCraftPlugin plugin) {
+    public EconomyManager(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
     }
 

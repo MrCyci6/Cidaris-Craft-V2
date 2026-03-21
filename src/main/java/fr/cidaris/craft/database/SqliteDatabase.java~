@@ -1,4 +1,0 @@
-package fr.cidaris.craft.database;
-
-public class SqliteDatabase {
-}

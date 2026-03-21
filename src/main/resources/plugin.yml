@@ -1,5 +1,5 @@
-name: CidarisCraft
-main: fr.cidaris.craft.CidarisCraftPlugin
+name: CidarisRecipe
+main: fr.cidaris.craft.CidarisRecipePlugin
 version: 1.0.0
 author: MrCyci6
 depend: [Vault, HeadDatabase]

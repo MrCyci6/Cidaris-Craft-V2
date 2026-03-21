@@ -1,6 +1,6 @@
 package fr.cidaris.craft.command.subcommands;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.command.SubCommand;
 import fr.cidaris.craft.model.CraftDefinition;
 import fr.cidaris.craft.model.PlayerData;
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 public class GiveCraftCommand extends SubCommand {
 
 
-    public GiveCraftCommand(CidarisCraftPlugin plugin) {
+    public GiveCraftCommand(CidarisRecipePlugin plugin) {
         super(plugin);
     }
 

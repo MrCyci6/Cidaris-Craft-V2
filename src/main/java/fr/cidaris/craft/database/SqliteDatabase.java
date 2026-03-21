@@ -1,6 +1,6 @@
 package fr.cidaris.craft.database;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 
 import java.io.File;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class SqliteDatabase extends AbstractSqlDatabase {
 
-    public SqliteDatabase(CidarisCraftPlugin plugin) {
+    public SqliteDatabase(CidarisRecipePlugin plugin) {
         super(plugin);
         init();
     }

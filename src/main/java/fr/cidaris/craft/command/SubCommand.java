@@ -1,14 +1,12 @@
 package fr.cidaris.craft.command;
 
-import fr.cidaris.craft.CidarisCraftPlugin;
+import fr.cidaris.craft.CidarisRecipePlugin;
 import fr.cidaris.craft.config.files.MessagesConfig;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 
 public abstract class SubCommand {
 
-    protected final CidarisCraftPlugin plugin;
+    protected final CidarisRecipePlugin plugin;
     protected final MessagesConfig msgConfig;
 
     public abstract String getName();
@@ -18,7 +16,7 @@ public abstract class SubCommand {
     public abstract boolean isPlayerOnly();
     public abstract void perform(CommandSender sender, String[] args);
 
-    public SubCommand(CidarisCraftPlugin plugin) {
+    public SubCommand(CidarisRecipePlugin plugin) {
         this.plugin = plugin;
         this.msgConfig = plugin.getConfigManager().getConfig(MessagesConfig.class);
     }
