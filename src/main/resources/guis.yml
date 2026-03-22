@@ -26,7 +26,7 @@ blueprint_menu:
 
 # 3. L'Arbre de Craft (Wiki)
 wiki_tree:
-  title: "&8» &6Arbre (Tiers %start%-%end%)"
+  title: "&8» &6Arbre"
   size: 54
   background:
     material: STAINED_GLASS_PANE
@@ -35,14 +35,20 @@ wiki_tree:
   pagination:
     up_slot: 45
     up_item:
-      hdb: "9224"
-      material: ARROW
-      name: "&e▲ Faire défiler vers le haut"
+      hdb: 9220
+      name: "&e▲ Défiler vers le haut"
     down_slot: 53
     down_item:
-      hdb: "9225"
-      material: ARROW
-      name: "&e▼ Faire défiler vers le bas"
+      hdb: 9227
+      name: "&e▼ Défiler vers le bas"
+    left_slot: 47
+    left_item:
+      hdb: 9226
+      name: "&e◀ Défiler vers la gauche"
+    right_slot: 51
+    right_item:
+      hdb: 9223
+      name: "&e▶ Défiler vers la droite"
 
   # NOUVEAU : Formatage complet des crafts dans le Wiki
   craft_format:

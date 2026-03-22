@@ -33,7 +33,7 @@ public class WikiCommand extends SubCommand {
     @Override
     public void perform(CommandSender sender, String[] args) {
         Player player = (Player) sender;
-        WikiGui wiki = new WikiGui(plugin, player, 0);
+        WikiGui wiki = new WikiGui(plugin, player, 0, 0);
         player.openInventory(wiki.getInventory());
     }
 }

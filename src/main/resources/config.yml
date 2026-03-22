@@ -19,6 +19,18 @@ wiki-heads:
   unlockable: "6101"    # Tête Jaune (Prêt à acheter)
   locked-parents: "6103" # Tête Rouge (Parent manquant)
   locked-resources: "8619" # Tête Orange (Ressources manquantes)
+wiki_origin_item:
+  material: QUARTZ_BLOCK
+  name: " "
+  lore: []
+wiki_path_item:
+  material: STICK
+  name: " "
+  glow: false
+wiki_path_item_unlocked:
+  material: BLAZE_ROD
+  name: " "
+  glow: true
 
 blueprint:
   hdb: "41033"
@@ -34,7 +46,13 @@ blueprint_revealed:
   material: EMPTY_MAP
   name: "&a&lPlan : &e%craft_name%"
   lore:
-    - "&7Vous avez analysé ce plan."
+    - "&7Rareté : &f%rarity%"
     - ""
     - "&a► Clic-Droit pour débloquer"
     - "&a  sans payer de ressources !"
+
+blueprint_rarities:
+  commun: 60.0
+  rare: 25.0
+  epique: 10.0
+  legendaire: 5.0

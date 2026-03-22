@@ -9,22 +9,24 @@ public class CraftDefinition {
     private final List<String> parents;
     private final List<Cost> costs;
     private final List<String> commands;
+    private final String rarity;
 
-    private final int guiColumn;
-    private final int guiTier;
+    private final int guiX;
+    private final int guiY;
     public CraftDefinition(String id, String name, List<String> parents, List<Cost> costs,
-                           List<String> commands,
-                           int guiColumn, int guiTier) {
+                           List<String> commands, String rarity,
+                           int guiX, int guiY) {
         this.id = id;
         this.name = name;
         this.parents = parents;
         this.costs = costs;
         this.commands = commands;
-        this.guiColumn = guiColumn;
-        this.guiTier = guiTier;
+        this.rarity = rarity;
+        this.guiX = guiX;
+        this.guiY = guiY;
     }
-    public int getGuiColumn() { return guiColumn; }
-    public int getGuiTier() { return guiTier; }
+    public int getGuiX() { return guiX; }
+    public int getGuiY() { return guiY; }
 
     public String getId() { return id; }
     public String getName() { return name; }
@@ -32,5 +34,9 @@ public class CraftDefinition {
     public List<Cost> getCosts() { return costs; }
     public List<String> getCommands() {
         return commands;
+    }
+
+    public String getRarity() {
+        return rarity;
     }
 }

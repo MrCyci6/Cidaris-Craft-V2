@@ -15,12 +15,10 @@ import java.util.Map;
 
 public class ConfigItemBuilder {
 
-    // Méthode 1 : Sans placeholders (pour les items statiques comme les vitres ou flèches)
     public static ItemStack fromConfig(CidarisRecipePlugin plugin, ConfigurationSection section) {
         return fromConfig(plugin, section, new HashMap<>());
     }
 
-    // Méthode 2 : Avec placeholders dynamiques
     public static ItemStack fromConfig(CidarisRecipePlugin plugin, ConfigurationSection section, Map<String, String> placeholders) {
         if (section == null) return new ItemStack(Material.PAPER);
 
@@ -35,7 +33,6 @@ public class ConfigItemBuilder {
             }
         }
 
-        // 2. Fallback Vanilla
         if (item == null) {
             String matName = section.getString("material", "PAPER");
             Material mat = Material.getMaterial(matName.toUpperCase());
@@ -45,11 +42,8 @@ public class ConfigItemBuilder {
             item = new ItemStack(mat, 1, data);
         }
 
-        // 3. Application du Nom et du Lore avec remplacement des Placeholders
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-
-            // Traitement du nom
             if (section.contains("name")) {
                 String name = section.getString("name");
                 for (Map.Entry<String, String> entry : placeholders.entrySet()) {
@@ -58,7 +52,6 @@ public class ConfigItemBuilder {
                 meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
             }
 
-            // Traitement du lore
             if (section.contains("lore")) {
                 List<String> lore = new ArrayList<>();
                 for (String line : section.getStringList("lore")) {
@@ -70,7 +63,6 @@ public class ConfigItemBuilder {
                 meta.setLore(lore);
             }
 
-            // Traitement du glow (enchantement caché)
             if (section.getBoolean("glow", false)) {
                 meta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 1, true);
                 meta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ENCHANTS);
