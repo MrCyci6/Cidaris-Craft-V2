@@ -44,7 +44,7 @@ public class BlueprintManager {
         String craftId = plugin.getNbt().getString(sealed, BlueprintKeys.BP_CRAFT);
 
         if ("random_all".equals(type)) {
-            List<CraftDefinition> available = (List<CraftDefinition>) plugin.getCraftManager().getAllCrafts();
+            Collection<CraftDefinition> available = plugin.getCraftManager().getAllCrafts();
             /*for (CraftDefinition craft : plugin.getCraftManager().getAllCrafts()) {
                 if (!playerData.hasUnlocked(craft.getId())) {
                     available.add(craft);
@@ -99,7 +99,7 @@ public class BlueprintManager {
         ConfigurationSection bpConfig = plugin.getConfigManager().getConfig(MainConfig.class).get().getConfigurationSection("blueprint_revealed");
         Map<String, String> placeholders = new HashMap<>();
         placeholders.put("%craft_name%", resultCraft.getName());
-        placeholders.put("%rarity%", resultCraft.getRarity());
+        placeholders.put("%rarity%", resultCraft.getRarityDisplay());
         ItemStack revealed = ConfigItemBuilder.fromConfig(plugin, bpConfig, placeholders);
 
         revealed = plugin.getNbt().setString(revealed, BlueprintKeys.BP_STATE, "revealed");

@@ -10,11 +10,12 @@ public class CraftDefinition {
     private final List<Cost> costs;
     private final List<String> commands;
     private final String rarity;
+    private final String rarityDisplay;
 
     private final int guiX;
     private final int guiY;
     public CraftDefinition(String id, String name, List<String> parents, List<Cost> costs,
-                           List<String> commands, String rarity,
+                           List<String> commands, String rarity, String rarityDisplay,
                            int guiX, int guiY) {
         this.id = id;
         this.name = name;
@@ -22,6 +23,7 @@ public class CraftDefinition {
         this.costs = costs;
         this.commands = commands;
         this.rarity = rarity;
+        this.rarityDisplay = rarityDisplay;
         this.guiX = guiX;
         this.guiY = guiY;
     }
@@ -38,5 +40,9 @@ public class CraftDefinition {
 
     public String getRarity() {
         return rarity;
+    }
+
+    public String getRarityDisplay() {
+        return rarityDisplay;
     }
 }

@@ -6,9 +6,10 @@ crafts:
   # ==========================================
   # BRANCHE NORD : MAGIE (Y Négatif)
   # ==========================================
-  magic_wand:
-    name: "Baguette d'Apprenti"
+  opale_apple:
+    name: "Pomme d'Opale"
     rarity: "commun"
+    rarityDisplay: "&8&lCommun"
     gui:
       x: 0
       y: -2
@@ -17,142 +18,115 @@ crafts:
       - type: MONEY
         amount: 50
     commands:
-      - "[console] lp user %player% permission set craft.magic_wand"
-      - "msg %player% &bVous sentez la magie couler en vous..."
-
-  fire_spell:
-    name: "Tome de Feu"
+      - "[console] lp user %player% permission set cidaris.craft.opale_apple"
+  speed_brew:
+    name: "Breuvage de vitesse"
     rarity: "rare"
+    rarityDisplay: "&b&lRare"
     gui:
-      x: -2 # Part vers le haut-gauche
-      y: -3
-    parents: [magic_wand]
+      x: 0
+      y: -4
+    parents: [opale_apple]
     costs:
       - type: MONEY
         amount: 200
     commands:
-      - "[console] lp user %player% permission set craft.fire_spell"
-
-  water_spell:
-    name: "Tome d'Eau"
+      - "[console] lp user %player% permission set cidaris.craft.speed_brew"
+  fire_brew:
+    name: "Breuvage de feu"
     rarity: "rare"
-    gui:
-      x: 2 # Part vers le haut-droite
-      y: -3
-    parents: [magic_wand]
-    costs:
-      - type: MONEY
-        amount: 200
-    commands:
-      - "[console] lp user %player% permission set craft.water_spell"
-
-  archmage_staff:
-    name: "Bâton de l'Archimage"
-    rarity: "legendaire"
-    gui:
-      x: 0
-      y: -5 # Continue tout droit vers le haut
-    parents: [fire_spell, water_spell] # Rejoint les deux côtés !
-    costs:
-      - type: MONEY
-        amount: 1500
-    commands:
-      - "[console] lp user %player% permission set craft.archmage_staff"
-      - "broadcast &d%player% &5est devenu un Archimage !"
-
-  # ==========================================
-  # BRANCHE SUD : COMBAT (Y Positif)
-  # ==========================================
-  steel_sword:
-    name: "Épée en Acier"
-    rarity: "commun"
-    gui:
-      x: 0
-      y: 2
-    parents: []
-    costs:
-      - type: MONEY
-        amount: 100
-      - type: CUSTOM_ITEM
-        id: "iron_ingot"
-        amount: 10
-    commands:
-      - "[console] lp user %player% permission set craft.steel_sword"
-
-  steel_shield:
-    name: "Bouclier Lourd"
-    rarity: "rare"
-    gui:
-      x: -2 # Part vers le bas-gauche
-      y: 3
-    parents: [steel_sword]
-    costs:
-      - type: MONEY
-        amount: 150
-    commands:
-      - "[console] lp user %player% permission set craft.steel_shield"
-
-  titanium_blade:
-    name: "Lame en Titane"
-    rarity: "epique"
-    gui:
-      x: 0
-      y: 5 # Continue tout droit vers le bas
-    parents: [steel_sword]
-    costs:
-      - type: MONEY
-        amount: 800
-    commands:
-      - "[console] lp user %player% permission set craft.titanium_blade"
-
-  # ==========================================
-  # BRANCHE EST : TECHNOLOGIE (X Positif)
-  # ==========================================
-  basic_gear:
-    name: "Engrenage Basique"
-    rarity: "commun"
+    rarityDisplay: "&b&lRare"
     gui:
       x: 2
-      y: 0
-    parents: []
+      y: -4
+    parents: [speed_brew]
     costs:
       - type: MONEY
-        amount: 80
+        amount: 200
     commands:
-      - "[console] lp user %player% permission set craft.basic_gear"
-
-  steam_engine:
-    name: "Moteur à Vapeur"
+      - "[console] lp user %player% permission set cidaris.craft.fire_brew"
+  strength_brew:
+    name: "Breuvage de force"
     rarity: "rare"
+    rarityDisplay: "&b&lRare"
     gui:
-      x: 4
-      y: 0
-    parents: [basic_gear]
+      x: -2
+      y: -4
+    parents: [speed_brew]
     costs:
       - type: MONEY
-        amount: 400
+        amount: 200
     commands:
-      - "[console] lp user %player% permission set craft.steam_engine"
-
-  conveyor_belt:
-    name: "Tapis Roulant"
-    rarity: "commun"
+      - "[console] lp user %player% permission set cidaris.craft.strength_brew"
+  super_brew:
+    name: "Breuvage Super"
+    rarity: "rare"
+    rarityDisplay: "&b&lRare"
     gui:
-      x: 3
-      y: 2 # Part vers la droite-bas
-    parents: [basic_gear]
+      x: 0
+      y: -6
+    parents: [speed_brew, fire_brew, strength_brew]
     costs:
       - type: MONEY
-        amount: 120
+        amount: 200
     commands:
-      - "[console] lp user %player% permission set craft.conveyor_belt"
-
-  # ==========================================
-  # BRANCHE OUEST : AGRICULTURE (X Négatif)
-  # ==========================================
-  reinforced_hoe:
-    name: "Houe Renforcée"
+      - "[console] lp user %player% permission set cidaris.craft.super_brew"
+  blank_orb:
+    name: "Orbe Vierge"
+    rarity: "rare"
+    rarityDisplay: "&b&lRare"
+    gui:
+      x: 0
+      y: -8
+    parents: [super_brew]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.blank_orb"
+  heal_orb:
+    name: "Orbe de soin"
+    rarity: "epique"
+    rarityDisplay: "&5&lEpique"
+    gui:
+      x: 2
+      y: -8
+    parents: [blank_orb]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.heal_orb"
+  repair_orb:
+    name: "Orbe de réparation"
+    rarity: "epique"
+    rarityDisplay: "&5&lEpique"
+    gui:
+      x: -2
+      y: -8
+    parents: [blank_orb]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.repair_orb"
+  repair_potion:
+    name: "Potion de réparation"
+    rarity: "epique"
+    rarityDisplay: "&5&lEpique"
+    gui:
+      x: -4
+      y: -8
+    parents: [repair_orb]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.repair_potion"
+  opale_sword:
+    name: "Épée en opale"
     rarity: "commun"
+    rarityDisplay: "&8&lCommun"
     gui:
       x: -2
       y: 0
@@ -161,47 +135,226 @@ crafts:
       - type: MONEY
         amount: 50
     commands:
-      - "[console] lp user %player% permission set craft.reinforced_hoe"
-
-  magic_seeds:
-    name: "Graines Magiques"
+      - "[console] lp user %player% permission set cidaris.craft.opale_sword"
+  opale_pickaxe:
+    name: "Pioche en opale"
+    rarity: "commun"
+    rarityDisplay: "&8&lCommun"
+    gui:
+      x: -2
+      y: 2
+    parents: [opale_sword]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.opale_pickaxe"
+  opale_multitools:
+    name: "Multitools en opale"
+    rarity: "commun"
+    rarityDisplay: "&8&lCommun"
+    gui:
+      x: -2
+      y: -2
+    parents: [opale_sword]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.opale_multitools"
+  platine_sword:
+    name: "Épée en platine"
     rarity: "rare"
+    rarityDisplay: "&b&lRare"
     gui:
       x: -4
-      y: 0
-    parents: [reinforced_hoe]
+      y: 2
+    parents: [opale_pickaxe]
     costs:
       - type: MONEY
-        amount: 300
+        amount: 200
     commands:
-      - "[console] lp user %player% permission set craft.magic_seeds"
-
-  auto_harvester:
-    name: "Moissonneuse Automatique"
+      - "[console] lp user %player% permission set cidaris.craft.platine_sword"
+  platine_pickaxe:
+    name: "Pioche en platine"
+    rarity: "rare"
+    rarityDisplay: "&b&lRare"
+    gui:
+      x: -4
+      y: 4
+    parents: [platine_sword]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.platine_pickaxe"
+  platine_multitools:
+    name: "Multitools en platine"
+    rarity: "rare"
+    rarityDisplay: "&b&lRare"
+    gui:
+      x: -6
+      y: 4
+    parents: [platine_pickaxe]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.platine_multitools"
+  meteorite_multitools:
+    name: "Multitools en météorite"
     rarity: "epique"
+    rarityDisplay: "&5&lEpique"
     gui:
-      x: -5
-      y: -2 # Part vers la gauche-haut
-    parents: [magic_seeds]
+      x: -6
+      y: 2
+    parents: [platine_multitools]
     costs:
       - type: MONEY
-        amount: 1200
+        amount: 200
     commands:
-      - "[console] lp user %player% permission set craft.auto_harvester"
-
-  # ==========================================
-  # CRAFT HYBRIDE (Croisement de branches)
-  # ==========================================
-  techno_magic_core:
-    name: "Noyau Techno-Magique"
+      - "[console] lp user %player% permission set cidaris.craft.meteorite_multitools"
+  meteorite_pickaxe:
+    name: "Pioche en météorite"
+    rarity: "epique"
+    rarityDisplay: "&5&lEpique"
+    gui:
+      x: -8
+      y: 2
+    parents: [meteorite_multitools]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.meteorite_pickaxe"
+  meteorite_sword:
+    name: "Épée en météorite"
     rarity: "legendaire"
+    rarityDisplay: "&6&lLégendaire"
     gui:
-      x: 4
-      y: -3 # Dans le quadrant Nord-Est
-    parents: [water_spell, steam_engine] # Relie la branche Magie et la branche Technologie !
+      x: -10
+      y: 2
+    parents: [meteorite_pickaxe]
     costs:
       - type: MONEY
-        amount: 5000
+        amount: 200
     commands:
-      - "[console] lp user %player% permission set craft.techno_magic_core"
-      - "broadcast &6%player% &ea fusionné la magie et la technologie !"
+      - "[console] lp user %player% permission set cidaris.craft.meteorite_sword"
+  farming_sword:
+    name: "Épée à monstres"
+    rarity: "rare"
+    rarityDisplay: "&b&lRare"
+    gui:
+      x: -4
+      y: -2
+    parents: [opale_multitools]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.farming_sword"
+  renforced_string:
+    name: "Fil renforcé"
+    rarity: "rare"
+    rarityDisplay: "&b&lRare"
+    gui:
+      x: -6
+      y: -2
+    parents: [farming_sword]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.renforced_string"
+  meteorite_bow:
+    name: "Arc Explosif"
+    rarity: "epique"
+    rarityDisplay: "&5&lEpique"
+    gui:
+      x: -6
+      y: 0
+    parents: [renforced_string, meteorite_multitools]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.meteorite_bow"
+  farmtool:
+    name: "FarmTool"
+    rarity: "rare"
+    rarityDisplay: "&b&lRare"
+    gui:
+      x: -4
+      y: -4
+    parents: [farming_sword]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.farmtool"
+  farmaxe:
+    name: "FarmAxe"
+    rarity: "rare"
+    rarityDisplay: "&b&lRare"
+    gui:
+      x: -4
+      y: -6
+    parents: [farmtool]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.farmaxe"
+
+  mug:
+    name: "Chope Vide"
+    rarity: "rare"
+    rarityDisplay: "&b&lRare"
+    gui:
+      x: -6
+      y: -6
+    parents: [stacked_wheat]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.mug"
+  stacked_wheat:
+    name: "Blé compacté"
+    rarity: "rare"
+    rarityDisplay: "&b&lRare"
+    gui:
+      x: -6
+      y: -4
+    parents: [farmtool]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.stacked_wheat"
+  wheat:
+    name: "Houblon"
+    rarity: "epique"
+    rarityDisplay: "&5&lEpique"
+    gui:
+      x: -8
+      y: -6
+    parents: [mug]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.wheat"
+  station:
+    name: "Tonneau"
+    rarity: "legendaire"
+    rarityDisplay: "&6&lLégendaire"
+    gui:
+      x: -10
+      y: -6
+    parents: [wheat]
+    costs:
+      - type: MONEY
+        amount: 200
+    commands:
+      - "[console] lp user %player% permission set cidaris.craft.station"

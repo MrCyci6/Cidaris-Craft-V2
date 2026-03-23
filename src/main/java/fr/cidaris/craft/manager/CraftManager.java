@@ -67,10 +67,11 @@ public class CraftManager {
 
                 List<String> commands = section.getStringList("commands");
                 String rarity = section.getString("rarity", "commun");
+                String rarityDisplay = section.getString("rarityDisplay", "");
 
                 int guiX = section.getInt("gui.x", 0);
                 int guiY = section.getInt("gui.y", 0);
-                CraftDefinition craft = new CraftDefinition(key, name, parents, costs, commands, rarity, guiX, guiY);
+                CraftDefinition craft = new CraftDefinition(key, name, parents, costs, commands, rarity, rarityDisplay, guiX, guiY);
                 craftRegistry.put(key, craft);
                 gridCrafts.put(craft.getGuiX() + ":" + craft.getGuiY(), craft);
 

@@ -72,7 +72,7 @@ public class GiveBlueprintCommand extends SubCommand {
 
         if (blueprintItem != null) {
             target.getInventory().addItem(blueprintItem);
-            sender.sendMessage(msgConfig.getMessage("blueprint_received"));
+            target.sendMessage(msgConfig.getMessage("blueprint_received"));
 
         }
     }
