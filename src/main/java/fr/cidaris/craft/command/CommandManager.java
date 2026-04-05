@@ -20,7 +20,7 @@ public class CommandManager implements CommandExecutor {
         this.plugin = plugin;
         subcommands.add(new WikiCommand(plugin));
         subcommands.add(new GiveCraftCommand(plugin));
-        subcommands.add(new GiveBlueprintCommand(plugin));
+        subcommands.add(new GiveBlueprintCommand(plugin, this));
         subcommands.add(new BlueprintGuiCommand(plugin));
         subcommands.add(new ResetCommand(plugin));
         subcommands.add(new ReloadCommand(plugin));
@@ -55,7 +55,7 @@ public class CommandManager implements CommandExecutor {
         return true;
     }
 
-    private void sendHelpMessage(CommandSender sender) {
+    public void sendHelpMessage(CommandSender sender) {
         sender.sendMessage(" ");
         sender.sendMessage("§8§m----------------------------------------");
         sender.sendMessage("             §b§lCidaris Craft");
